@@ -10,9 +10,20 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  phoneNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    enum: ["customer", "rider"], // Define roles here
+    default: "customer", // Default role is customer
   },
   addresses: [
     {

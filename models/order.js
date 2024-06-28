@@ -64,6 +64,17 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  status: {
+    type: String,
+    default: "pending", // Default status is 'pending'
+  },
+  riderName: {
+    type: String,
+  },
+
+  riderEmail: {
+    type: String,
+  },
 });
 
 const Order = mongoose.model("Order", orderSchema);
