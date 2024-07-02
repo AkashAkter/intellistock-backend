@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema({
+const offerSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -21,10 +25,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  discountPrice: {
-    type: Number,
-  },
-  trendingProduct: {
+  discount: {
     type: String,
   },
   createdAt: {
@@ -33,6 +34,6 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-const Product = mongoose.model("Product", productSchema);
+const Offer = mongoose.model("Offer", offerSchema);
 
-module.exports = Product;
+module.exports = Offer;

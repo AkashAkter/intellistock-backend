@@ -38,6 +38,7 @@ const User = require("./models/user");
 const Order = require("./models/order");
 const Product = require("./models/product");
 const Favourite = require("./models/favourite");
+const Offer = require("./models/offer");
 
 const generateSecretKey = () => {
   const secretKey = crypto.randomBytes(32).toString("hex");
@@ -77,7 +78,8 @@ app.post("/register", async (req, res) => {
 
 app.post("/products", async (req, res) => {
   try {
-    const { title, price, description, category, image } = req.body;
+    const { title, price, description, category, image, trendingProduct } =
+      req.body;
 
     // Create a new product instance
     const newProduct = new Product({
@@ -86,6 +88,7 @@ app.post("/products", async (req, res) => {
       description,
       category,
       image,
+      trendingProduct,
     });
 
     // Save the new product to the database
@@ -314,6 +317,20 @@ app.get("/products", async (req, res) => {
     }
 
     res.status(200).json({ products });
+  } catch (error) {
+    res.status(500).json({ message: "Error" });
+  }
+});
+
+app.get("/offers", async (req, res) => {
+  try {
+    const offers = await Offer.find();
+
+    if (!offers || offers.length === 0) {
+      return res.status(404).json({ message: "No offers found" });
+    }
+
+    res.status(200).json({ offers });
   } catch (error) {
     res.status(500).json({ message: "Error" });
   }
