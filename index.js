@@ -413,3 +413,39 @@ app.delete("/users/:userId", async (req, res) => {
     res.status(500).json({ message: "Failed to delete user" });
   }
 });
+
+app.delete("/orders/:orderId", async (req, res) => {
+  try {
+    const orderId = req.params.orderId;
+    // console.log(orderId);
+    // Implement logic to find user by ID and delete
+    const deletedOrder = await Order.findByIdAndDelete(orderId);
+
+    if (!deletedOrder) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json({ message: "Order deleted successfully", deletedOrder });
+  } catch (error) {
+    console.error("Error deleting Order:", error);
+    res.status(500).json({ message: "Failed to delete Order" });
+  }
+});
+
+app.delete("/favourites/:favouriteId", async (req, res) => {
+  try {
+    const favouriteId = req.params.favouriteId;
+    // console.log(favouriteId);
+    // Implement logic to find user by ID and delete
+    const deletedFavourite = await Favourite.findByIdAndDelete(favouriteId);
+    // console.log(deletedFavourite);
+    if (!deletedFavourite) {
+      return res.status(404).json({ message: "favourite not found" });
+    }
+
+    res.json({ message: "favourite deleted successfully", deletedFavourite });
+  } catch (error) {
+    console.error("Error deleting favourite:", error);
+    res.status(500).json({ message: "Failed to delete favourite" });
+  }
+});
