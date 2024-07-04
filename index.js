@@ -106,6 +106,46 @@ app.post("/products", async (req, res) => {
   }
 });
 
+app.post("/offers", async (req, res) => {
+  try {
+    const {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      oldPrice,
+      discount,
+    } = req.body;
+
+    // Create a new product instance
+    const newOfferProduct = new Offer({
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      oldPrice,
+      discount,
+    });
+
+    // Save the new product to the database
+    await newOfferProduct.save();
+
+    console.log("New Offer Product Added:", newOfferProduct);
+
+    res.status(201).json({
+      message: "Product added successfully.",
+      offerProduct: newOfferProduct, // Optional: Send back the added product details
+    });
+  } catch (error) {
+    console.error("Error Adding Product", error);
+    res.status(500).json({ message: "Failed to add product." });
+  }
+});
+
 app.post("/favourite", async (req, res) => {
   try {
     const { title, price, description, category, image, userId } = req.body;
